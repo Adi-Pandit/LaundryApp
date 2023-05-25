@@ -137,58 +137,64 @@ const HomeScreen = () => {
   ];
 
   return (
-    <ScrollView style={GlobalStyle.androidSafeArea}>
-      {/* Location and Profile */}
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
-        <MaterialIcons name="location-on" size={30} color="#FD5C63" />
-        <View>
-          <Text style={{ fontSize: 18, fontFamily: "PoppinsBold" }}>Home</Text>
-          <Text style={{ fontFamily: "PoppinsRegular" }}>
-            Dange Chowk, Thergaon 411033
-          </Text>
+    <SafeAreaView style={GlobalStyle.androidSafeArea}>
+      <ScrollView>
+        {/* Location and Profile */}
+        <View
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        >
+          <MaterialIcons name="location-on" size={30} color="#FD5C63" />
+          <View>
+            <Text style={{ fontSize: 18, fontFamily: "PoppinsBold" }}>
+              Home
+            </Text>
+            <Text style={{ fontFamily: "PoppinsRegular" }}>
+              Dange Chowk, Thergaon 411033
+            </Text>
+          </View>
+
+          <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
+            <Image
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+              source={{
+                uri: "https://wallpapers-clan.com/wp-content/uploads/2023/02/anime-boy-black-pfp-33.jpg",
+              }}
+            />
+          </Pressable>
         </View>
 
-        <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
-          <Image
-            style={{ width: 40, height: 40, borderRadius: 20 }}
-            source={{
-              uri: "https://wallpapers-clan.com/wp-content/uploads/2023/02/anime-boy-black-pfp-33.jpg",
-            }}
-          />
-        </Pressable>
-      </View>
+        {/* Search Bar */}
+        <View
+          style={{
+            padding: 10,
+            margin: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 0.8,
+            borderColor: "#C0C0C0",
+            borderRadius: 7,
+          }}
+        >
+          <TextInput
+            style={{ fontFamily: "PoppinsRegular", width: 175 }}
+            placeholder="Search for items or more"
+          ></TextInput>
+          <Feather name="search" size={24} color="#FD5C63" />
+        </View>
 
-      {/* Search Bar */}
-      <View
-        style={{
-          padding: 10,
-          margin: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderWidth: 0.8,
-          borderColor: "#C0C0C0",
-          borderRadius: 7,
-        }}
-      >
-        <TextInput
-          style={{ fontFamily: "PoppinsRegular", width: 175 }}
-          placeholder="Search for items or more"
-        ></TextInput>
-        <Feather name="search" size={24} color="#FD5C63" />
-      </View>
+        {/* Image Carousel */}
+        <Carousel />
 
-      {/* Image Carousel */}
-      <Carousel />
+        {/* Services Component */}
+        <Services />
 
-      {/* Services Component */}
-      <Services />
-
-      {/* Render all the products */}
-      {services.map((item, index) => (
-        <DressItem item={item} key={index} />
-      ))}
-    </ScrollView>
+        {/* Render all the products */}
+        {services.map((item, index) => (
+          <DressItem item={item} key={index} />
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
