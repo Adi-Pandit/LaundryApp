@@ -26,7 +26,7 @@ const DressItem = ({ item }) => {
           <Text
             style={{
               fontFamily: "PoppinsBold",
-              width: 83,
+              width: 93,
               fontSize: 17,
               marginBottom: 7,
             }}

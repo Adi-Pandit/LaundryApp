@@ -16,8 +16,12 @@ import GlobalStyle from "../GlobalStyle";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import DressItem from "../components/DressItem";
+import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
+  const cart = useSelector((state) => state.cart.cart);
+
+  console.log(cart);
   // const [displayCurrentAddress, setDisplayCurrentAddress] = useState("We are loding your location");
   // const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
 
@@ -137,7 +141,7 @@ const HomeScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={GlobalStyle.androidSafeArea}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F0F0" }}>
       <ScrollView>
         {/* Location and Profile */}
         <View
@@ -202,7 +206,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({});
 
-// get ColorPropType(): $FlowFixMe {
+//  get ColorPropType(): $FlowFixMe {
 //     return require('deprecated-react-native-prop-types').ColorPropType;
 //   },
 

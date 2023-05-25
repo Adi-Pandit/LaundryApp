@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default function App() {
   const [fontLoading] = useFonts({
@@ -13,9 +15,10 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <Provider store={store}>
       <HomeScreen />
-    </View>
+      <StatusBar style="auto" />
+    </Provider>
   );
 }
 
