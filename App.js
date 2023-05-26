@@ -3,6 +3,7 @@ import HomeScreen from "./screens/HomeScreen";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import store from "./store";
+import StackNavigator from "./StackNavigator";
 
 export default function App() {
   const [fontLoading] = useFonts({
@@ -16,7 +17,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <HomeScreen />
+      <StackNavigator />
       <StatusBar style="auto" />
     </Provider>
   );

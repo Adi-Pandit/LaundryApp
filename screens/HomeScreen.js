@@ -12,16 +12,18 @@ import {
 import React, { useEffect, useState } from "react";
 //import * as Location from "expo-location";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
-import GlobalStyle from "../GlobalStyle";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import DressItem from "../components/DressItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../ProductReducer";
 
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
+  const total = cart
+    .map((item) => item.quantity * item.price)
+    .reduce((curr, prev) => curr + prev, 0);
 
-  console.log(cart);
   // const [displayCurrentAddress, setDisplayCurrentAddress] = useState("We are loding your location");
   // const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
 
@@ -88,6 +90,16 @@ const HomeScreen = () => {
   //   }
   // }
 
+  const product = useSelector((state) => state.product.product);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (product.length > 0) return;
+
+    const fetchProducts = () => {
+      services.map((service) => dispatch(getProducts(service)));
+    };
+    fetchProducts();
+  }, []);
   const services = [
     {
       id: "0",
@@ -141,64 +153,99 @@ const HomeScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F0F0" }}>
-      <ScrollView>
-        {/* Location and Profile */}
-        <View
-          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
-        >
-          <MaterialIcons name="location-on" size={30} color="#FD5C63" />
-          <View>
-            <Text style={{ fontSize: 18, fontFamily: "PoppinsBold" }}>
-              Home
-            </Text>
-            <Text style={{ fontFamily: "PoppinsRegular" }}>
-              Dange Chowk, Thergaon 411033
-            </Text>
+    <>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F0F0" }}>
+        <ScrollView>
+          {/* Location and Profile */}
+          <View
+            style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+          >
+            <MaterialIcons name="location-on" size={30} color="#FD5C63" />
+            <View>
+              <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+              <Text>Dange Chowk, Thergaon 411033</Text>
+            </View>
+
+            <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
+              <Image
+                style={{ width: 40, height: 40, borderRadius: 20 }}
+                source={{
+                  uri: "https://wallpapers-clan.com/wp-content/uploads/2023/02/anime-boy-black-pfp-33.jpg",
+                }}
+              />
+            </Pressable>
           </View>
 
-          <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
-            <Image
-              style={{ width: 40, height: 40, borderRadius: 20 }}
-              source={{
-                uri: "https://wallpapers-clan.com/wp-content/uploads/2023/02/anime-boy-black-pfp-33.jpg",
-              }}
-            />
-          </Pressable>
-        </View>
+          {/* Search Bar */}
+          <View
+            style={{
+              padding: 10,
+              margin: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderWidth: 0.8,
+              borderColor: "#C0C0C0",
+              borderRadius: 7,
+            }}
+          >
+            <TextInput
+              style={{ width: 175 }}
+              placeholder="Search for items or more"
+            ></TextInput>
+            <Feather name="search" size={24} color="#FD5C63" />
+          </View>
 
-        {/* Search Bar */}
-        <View
+          {/* Image Carousel */}
+          <Carousel />
+
+          {/* Services Component */}
+          <Services />
+
+          {/* Render all the products */}
+          {product.map((item, index) => (
+            <DressItem item={item} key={index} />
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+
+      {total === 0 ? null : (
+        <Pressable
           style={{
+            backgroundColor: "#088F8F",
             padding: 10,
-            margin: 10,
+            marginBottom: 30,
+            margin: 15,
+            borderRadius: 7,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            borderWidth: 0.8,
-            borderColor: "#C0C0C0",
-            borderRadius: 7,
           }}
         >
-          <TextInput
-            style={{ fontFamily: "PoppinsRegular", width: 175 }}
-            placeholder="Search for items or more"
-          ></TextInput>
-          <Feather name="search" size={24} color="#FD5C63" />
-        </View>
+          <View>
+            <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
+              {cart.length} items | $ {total}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "400",
+                color: "white",
+                marginVertical: 6,
+              }}
+            >
+              extra charges might apply
+            </Text>
+          </View>
 
-        {/* Image Carousel */}
-        <Carousel />
-
-        {/* Services Component */}
-        <Services />
-
-        {/* Render all the products */}
-        {services.map((item, index) => (
-          <DressItem item={item} key={index} />
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+          <Pressable>
+            <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
+              Proceed to pickup
+            </Text>
+          </Pressable>
+        </Pressable>
+      )}
+    </>
   );
 };
 

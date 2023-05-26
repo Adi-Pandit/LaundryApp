@@ -34,9 +34,7 @@ const Services = () => {
 
   return (
     <View style={{ padding: 10 }}>
-      <Text
-        style={{ fontFamily: "PoppinsBold", fontSize: 16, marginBottom: 7 }}
-      >
+      <Text style={{ fontWeight: "600", fontSize: 16, marginBottom: 7 }}>
         Services Available
       </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -57,7 +55,6 @@ const Services = () => {
             />
             <Text
               style={{
-                fontFamily: "PoppinsRegular",
                 textAlign: "center",
                 marginTop: 10,
               }}
