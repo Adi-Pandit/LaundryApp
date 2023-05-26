@@ -17,6 +17,7 @@ import Services from "../components/Services";
 import DressItem from "../components/DressItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
@@ -24,6 +25,7 @@ const HomeScreen = () => {
     .map((item) => item.quantity * item.price)
     .reduce((curr, prev) => curr + prev, 0);
 
+  const navigation = useNavigation();
   // const [displayCurrentAddress, setDisplayCurrentAddress] = useState("We are loding your location");
   // const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
 
@@ -238,7 +240,7 @@ const HomeScreen = () => {
             </Text>
           </View>
 
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate("PickUp")}>
             <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
               Proceed to pickup
             </Text>
