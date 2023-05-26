@@ -80,7 +80,11 @@ const PickUpScreen = () => {
       ]);
     }
     if (selectedDate && selectedTime && delivery) {
-      navigation.replace("Cart");
+      navigation.replace("Cart", {
+        pickUpDate: selectedDate,
+        selectedTime: selectedTime,
+        no_Of_Days: delivery,
+      });
     }
   };
 
@@ -119,7 +123,7 @@ const PickUpScreen = () => {
           mode="gregorian"
           startDate={new Date("2020-08-20")}
           endDate={new Date("2020-08-31")}
-          initialSelectedDate={new Date("2020-08-22")}
+          //initialSelectedDate={new Date("2020-08-22")}
           onSelectedDateChange={(date) => setSelectedDate(date)}
           selectedItemWidth={170}
           unselectedItemWidth={38}
